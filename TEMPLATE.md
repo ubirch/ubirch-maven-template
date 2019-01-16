@@ -10,6 +10,10 @@ as well as the sub modules ([submodule/build.xml](submodule/build.xml)).
 2. create a sister module for common code (i.e. libraries)
 3. keep dependencies in check, remove unused dependencies
 
+More complex examples are used in the [niomon project](https://github.com/ubirch/niomon) for
+a multi module project and in the [ubirch-protocol-java](https://github.com/ubirch/niomon) for 
+simple java based single module project.
+
 ## Building and CI
 
 Locally the project is built using the `mvn` command:
