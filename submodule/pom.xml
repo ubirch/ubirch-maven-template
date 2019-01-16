@@ -230,6 +230,7 @@
           </archive>
         </configuration>
       </plugin>
+      <!-- DOCKER: remove if not used -->
       <!-- copy all dependencies into the target/lib dir for our docker image -->
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -276,6 +277,7 @@
           </buildArgs>
         </configuration>
       </plugin>
+      <!-- DOCKER END -->
       <!-- for mvn deploy to work, disable the default deploy plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -287,14 +289,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <repositories>
-    <!-- simple kafka client -->
-    <repository>
-      <id>bintray-cakesolutions-maven</id>
-      <name>bintray</name>
-      <url>http://dl.bintray.com/cakesolutions/maven</url>
-    </repository>
-  </repositories>
-
 </project>
