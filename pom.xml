@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2019 ubirch GmbH
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Super Project Definitions -->
+  <groupId>ubirch</groupId>
+  <artifactId>ubirch-maven-template</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <name>ubirch-maven-template [${project.version}]</name>
+  <description>a maven template project</description>
+  <organization>
+    <name>ubirch GmbH</name>
+    <url>https://ubirch.com/</url>
+  </organization>
+
+  <!-- define the sub modules here -->
+  <modules>
+    <module>submodule</module>
+  </modules>
+
+  <!--
+    ** Useful common properties, also available in the sub modules.
+    ** It is good practise to put versions in properties and update
+    ** the whole project this way.
+    -->
+  <properties>
+    <!-- skip the normal deployment, required for dockerization -->
+    <maven.deploy.skip>true</maven.deploy.skip>
+    <!-- add a build timestamp that can be used to tag artefacts -->
+    <timestamp>${maven.build.timestamp}</timestamp>
+    <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+
+    <!-- ensure compiler version -->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+
+    <!-- ubirch -->
+    <ubirch-protocol-java.version>1.0.4</ubirch-protocol-java.version>
+
+    <!-- Scala -->
+    <scala-maven-plugin.version>3.4.2</scala-maven-plugin.version>
+    <scala.major.version>2.12</scala.major.version>
+    <scala.minor.version>.6</scala.minor.version>
+    <scala.version>${scala.major.version}${scala.minor.version}</scala.version>
+
+    <!-- akka -->
+    <akka.http.version>10.1.7</akka.http.version>
+    <akka.version>2.5.19</akka.version>
+    <akka-slf4j.version>2.5.19</akka-slf4j.version>
+    <akka.stream.kafka.version>0.22</akka.stream.kafka.version>
+
+    <!-- kafka -->
+    <simple.kafka.client.version>2.1.0</simple.kafka.client.version>
+
+    <!-- Logging -->
+    <slf4j-api.version>1.7.25</slf4j-api.version>
+    <scala-logging.version>3.9.2</scala-logging.version>
+    <logback-classic.version>1.2.3</logback-classic.version>
+
+    <!-- Testing -->
+    <junit.jupiter.version>5.3.2</junit.jupiter.version>
+    <junit.platform.version>1.2.0</junit.platform.version>
+    <scalatest.version>3.0.5</scalatest.version>
+    <mockito.scala.version>1.0.8</mockito.scala.version>
+
+    <!-- additional libraries -->
+    <json4s-native.version>3.6.3</json4s-native.version>
+    <json4s-jackson.version>3.6.3</json4s-jackson.version>
+    <msgpack4s.version>0.6.0</msgpack4s.version>
+    <commons-io.version>2.6</commons-io.version>
+    <scala-uuid.version>0.3.0</scala-uuid.version>
+    <commons-codec.version>1.10</commons-codec.version>
+    <config.version>1.3.3</config.version>
+  </properties>
+
+  <!--
+    ** Here are common dependencies used by all sub modules.
+    -->
+  <dependencies>
+    <!-- basic unit testing (test)-->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- the underlying logging framework -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback-classic.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <!-- We use the dockerfile-maven-extension throughout all projects -->
+  <build>
+    <extensions>
+      <extension>
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-extension</artifactId>
+        <version>1.4.0</version>
+      </extension>
+    </extensions>
+  </build>
+</project>
