@@ -3,8 +3,8 @@
 Use this template to bootstrap new projects, but also take a look at live projects
 where more up-to-date dependencies might be used.
 
-All build configuration is done in [build.xml](build.xml) for the super project
-as well as the sub modules ([submodule/build.xml](submodule/build.xml)). 
+All build configuration is done in [pom.xml](pom.xml) for the super project
+as well as the sub modules ([submodule/pom.xml](submodule/pom.xml)). 
 
 1. a module only produces one and only one artefact
 2. create a sister module for common code (i.e. libraries)
@@ -49,8 +49,41 @@ The project needs to be added to the GoCD build server, which will do the follow
 
 - Use the default code style from IntelliJ IDEA
 - when committing, allow reformat and optimize imports
+- *use rearrange code with care*, it may break scala logic, check results
 - check the hints that IDEA gives you and fix the yellow markers if possible
+- use the following copyright profile for automatic updates (use the Copyright plugin)
+    - Settings - Editor - Copyright - Copyright profiles
+    - Add as "Apache 2.0" and and only update if "ubirch" appears in the text
+    - Select as the default profile
+    
+```text
+Copyright (c) $today.year ubirch GmbH
 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```    
+
+> Sometimes the [scalastyle parser fails for valid scala code](https://github.com/scala-ide/scalariform/issues/217) which makes it
+> necessary to override the parent pom settings:
+>   ```xml
+> <plugin>
+>     <groupId>org.scalastyle</groupId>
+>     <artifactId>scalastyle-maven-plugin</artifactId>
+>     <version>1.0.0</version>
+>     <configuration>
+>         <includeTestSourceDirectory combine.self="override">false</includeTestSourceDirectory>
+>     </configuration>
+>    </plugin>
+>    ``` 
 ## Deployment
 
 The artefacts usually go into two categories, either they are _executable_ or they
